@@ -1,0 +1,917 @@
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/networkgraph.js"></script>
+
+<!-- Additional files for the Highslide popup effect -->
+<script src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js"></script>
+<script src="https://www.highcharts.com/media/com_demo/js/highslide.config.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="https://www.highcharts.com/media/com_demo/css/highslide.css" />
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+<script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/maps/modules/map.js"></script>
+<script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/masonry.js"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/imagesLoaded.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+<style>
+#asso_net {
+	display: table;
+	margin: 0 auto;
+}
+
+.container2-inner {
+	display: table;
+  	margin: 0 auto;
+	height:300px;
+}
+.main-container {
+  padding: 10px 15px;
+}
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+#radioBtn .notActive{
+    color: #000000;
+    background-color: #ffffcc;
+}
+
+</style>
+
+<div class="container">
+	<div>
+		<div>
+			<div id="container1" style="text-align:center;margin-bottom: 10px;margin-top: 40px">
+				<h style="color:#333333;font-size:22px;fill:#333333;">피핑 톰 프로젝트</h>
+				<br>
+				<!--<text x="1272" text-anchor="middle" class="highcharts-subtitle" data-z-index="4" style="color:#666666;fill:#666666;" y="46"><tspan>Source: Twitter Inc</tspan></text>-->
+			</div>
+			<div class="row">
+				<div class="col-sm-12" align="center">
+					<div class="input-group">
+						<div id="radioBtn" class="btn-group">
+							<a class="btn btn-primary btn-sm notActive" data-toggle="search" data-title="one">단어 검색</a>
+							<a class="btn btn-primary btn-sm active" data-toggle="search" data-title="multi">비교 검색</a>
+						</div>
+						<input type="hidden" name="happy" id="happy">
+					</div>
+				</div>
+			</div>
+
+			<div class="inner-form" style="display: flex;margin-left: 25%; width: 60%; padding: 10px; align-items: center; margin-bottom: 10px;">
+
+				<div id="1-2-1" style="margin-right: 10px;argin-top:0px;text-align: center;font-size: 18px;font-weight: bold;">검색: </div>
+			  <div class="input-field first-wrap" style="margin-right: 10px; width: 30%; height: 30px">
+				<input id="search1" type="text" placeholder="검색어 1." style="width: 100%; height: 100%" />
+			  </div>
+			  <div class="input-field second-wrap"  style="margin-right: 10px; height: 30px; width: 30%">
+				<input id="search2" type="text" placeholder="검색어 2." style="width: 100%; height: 100%" />
+			  </div>
+			  <div class="input-field third-wrap"  style="margin-right: 10px; height: 30px; width: 15%">
+				<button class="btn-search" type="button" onclick="click_search()" style="height: 100%">Search</button>
+			  </div>
+			</div>
+		</div>
+
+		<div class='data-form' style="height: 1100px">
+			<div id="container2" style='text-align: center;width:100%'>
+                <div id="asso_net"></div>
+            </div>
+
+			<div id="container2-2" style='text-align: center; width: 100%;height:600px'>
+				<div id="container2-2-1" class="container2-inner">
+					<p id="title2-2-1" style="margin-top:0px;text-align: center;font-size: 18px;font-weight: bold;"></p>
+					<div id="container2-2-1-1" style='display:inline;float:left;width:300px;height:250px'>
+					</div>
+					<div id="container2-2-1-2" style='display:inline;float:left;width:300px;height:250px'>
+					</div>
+					<div id="container2-2-1-3" style='display:inline;float:left;width:300px;height:250px'>
+					</div>
+				</div>
+
+				<div id="container2-2-2" class="container2-inner">
+					<p id="title2-2-2" style="margin-top:0px;text-align: center;font-size: 18px;font-weight: bold;"></p>
+					<div id="container2-2-2-1" style='display:inline;float:left;width:300px;height:250px'>
+					</div>
+					<div id="container2-2-2-2" style='display:inline;float:left;width:300px;height:250px'>
+					</div>
+					<div id="container2-2-2-3" style='display:inline;float:left;width:300px;height:250px'>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div>
+			<div id="container3" style="width: 100%">
+				<div id="container3-1" style="width:1000px; display: table; margin: 0 auto;"></div>
+			</div>
+			<div id="container4"></div>
+		</div>
+		<div>
+			<div id="container5"></div>
+		</div>
+
+	</div>
+
+	<button class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+
+	<div class="row masonry-container">
+	</div>
+
+</div>
+
+<script type="text/javascript">
+    $('input#search1').val('Apple');
+    $('input#search2').val('Samsung');
+	$('#radioBtn a').on('click', function(){
+		var sel = $(this).data('title');
+		var tog = $(this).data('toggle');
+		$('#'+tog).prop('value', sel);
+
+		$('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+		$('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+
+		if (sel == 'one') {
+		  $(".data-form").css("height","770px");
+		  $(".first-wrap").css("width", "62%");
+		  $(".second-wrap").css("display", "none");
+		  $("#search2").val('');
+		} else {
+		  $(".data-form").css("height","1100px");
+		  $(".first-wrap").css("width", "30%");
+		  $(".second-wrap").css("display", "block");
+		}
+		click_search();
+	});
+
+	var ret = [];
+    var linear_type_resp = [];
+    var keywords = [["Apple", "Samsung"]];
+    var keywords_lower = [["apple", "samsung"]];
+	var depths_of_keyw = [["North Korea"]];
+	var ban_keywords = ['sex', 'time', 'day', 'amp2', 'amp', 'today', 'yesterday', 'tomorrow', 'date', 'first']
+	var src_count = 0;
+	var nlp_others_set = new Set([]);
+	var main_search_sw = 0;
+	let search_expansion_limit = 3;
+	var curr_search_exp_cnt = 0;
+	var search_expansion_nomore_list = [];
+	var search_expansion_cnt_list = {};
+	var images = [];
+
+	request_image_with('apple');
+    request_image_with('samsung');
+	$('.btn-warning').hide();
+
+	function click_search() {
+        search1 = $('input#search1').val();
+    	search2 = $('input#search2').val();
+
+    	new_keyword = [];
+		new_keyword_lower = [];
+		images = [];
+		search_expansion_cnt_list = 0;
+		search_expansion_nomore_list = [];
+		search_expansion_cnt_list = {};
+		nlp_others_set = new Set([]);
+		main_search_sw = 0;
+		
+		sentiment_ts_index_each_keyw = {};
+		sentiment_ts_graph.series[0].setData([]);
+		sentiment_ts_graph.series[1].setData([]);
+
+		remove_image_all();
+
+    	if (search1 != undefined && search1 != '') {
+    	    new_keyword.push(search1);
+			new_keyword_lower.push(search1.toLowerCase());
+			request_new_crawling_with(search1);
+
+		}
+		if (search2 != undefined && search2 != '') {
+    	    new_keyword.push(search2);
+			new_keyword_lower.push(search2.toLowerCase());
+			request_new_crawling_with(search2);
+		}
+
+		if (new_keyword.length != 0) {
+    	    keywords = [];
+			keywords.push(new_keyword);
+    	    keywords_lower = [];
+    	    keywords_lower.push(new_keyword_lower);
+    	    ret = [];
+
+    	    var additional_subtitle = "<br/> (노랑: 명사어구, 빨강: 형용어구)";
+	    associative_net.showLoading('Loading data from server...');
+    	    associative_net.setTitle(null, {"text": "주어진 검색어: " + keywords[keywords.length - 1].join(", ") + additional_subtitle});
+    	    refresh_bar_data(false);
+    	    sentiment_ts_update_label();
+    	    chart_update(keywords[keywords.length-1], 0, false);
+		}
+	}
+
+	function request_new_crawling_with(keyword) {
+		$.getJSON('http://54.180.122.32:30303/crawl?k=' + keyword, function (data) {
+			chart_update(keywords[keywords.length-1], 0, false);
+			request_image_with(keyword.toLowerCase());
+		});
+	}
+
+	function request_image_with(keyword) {
+	    if (keywords[0].includes(keyword) || keywords_lower[0].includes(keyword)) {
+            $.getJSON('http://54.180.122.32:30303/image?k=' + keyword, function (data) {
+                data = JSON.parse(data.data);
+
+                data.forEach(function (img) {
+                    insert_image_with(img['img'], img['url']);
+                });
+            });
+        }
+	}
+
+	function remove_image_all() {
+	    $('.btn-warning').show();
+	    $('div').remove('.image-container');
+	}
+
+	function insert_image_with(url, img_url) {
+	    var tag = '<div class="col-xs-6 col-sm-3 col-md-3 item image-container"> <div class="thumbnail"> <img src="'+ url +'" onclick="open_url(\''+ img_url +'\');" alt=""> </div> </div>';
+		$('.masonry-container').append(tag);
+		update_image();
+	}
+
+	function update_image() {
+		$('.btn-warning').hide();
+
+	     var $container = $('.masonry-container');
+		  $container.imagesLoaded( function () {
+			$container.masonry({
+			  columnWidth: '.item',
+			  itemSelector: '.item'
+			});
+		  });
+
+		  $('a[data-toggle=tab]').each(function () {
+			var $this = $(this);
+
+			$this.on('shown.bs.tab', function () {
+
+			  $container.imagesLoaded( function () {
+				$container.masonry({
+				  columnWidth: '.item',
+				  itemSelector: '.item'
+				});
+			  });
+
+			});
+		  });
+	}
+
+	function open_url(url){
+	     window.open(url);
+	}
+
+	var fetch_network_data_from = function (src) {
+	    _ret = []
+	    for (var i in src) {
+	        for (var keyword in src[i]) {
+	            for (var idx in src[i][keyword]) {
+	                if (!ban_keywords.includes(src[i][keyword][idx][0]))
+	                    if (keywords_lower[keywords.length-1].includes(keyword))
+	                    	_ret.push([keyword, src[i][keyword][idx][0], 100]);//, src[i][keyword][idx][1]]);
+						else
+						    _ret.push([keyword, src[i][keyword][idx][0], 1]);
+                }
+			}
+		}
+		return _ret
+	};
+
+	var fetch_network_score_from = function (src) {
+	    _ret = {};
+	    for (var i in src) {
+	        for (var keyword in src[i]) {
+	            for (var idx in src[i][keyword]) {
+	                key = src[i][keyword][idx][0];
+	                val = src[i][keyword][idx][1];
+					if (nlp_others_set.has(key))
+					    continue;
+
+
+	                if (_ret[key] != undefined)
+	                    _ret[key] = _ret[key] + val;
+					else
+					    _ret[key] = val;
+                }
+			}
+		}
+
+		return _ret
+	};
+
+	var linear_keywords_array = function() {
+	    var _ret = [];
+	    keywords_lower.forEach(function(_d) {
+	        _ret = _ret.concat(_d);
+		});
+	    return _ret;
+	};
+
+    var update_network = function(data) {
+        associative_net.series[0].options.nodes = [];
+        associative_net.series[0].layout.nodes.length = 0;
+		associative_net.series[0].layout.links.length = 0;
+
+	    associative_net.series[0].setData(data);
+	    var curr_keywords = linear_keywords_array();
+		var scores = fetch_network_score_from(ret);
+
+
+	    var colors = Highcharts.getOptions().colors,
+			i = 1;
+
+	    associative_net.series[0].nodes.forEach(function (node) {
+			if (curr_keywords.includes(node.id)) {
+			    node.marker = {
+			        radius: 25
+				};
+			    node.color = colors[i++]
+			} else {
+			    if (nlp_others_set.has(node.id)) {
+			        node.marker = {
+			      	  radius: 7 * scores[node.id] < 7 ? 7 * scores[node.id] : 7
+					};
+					node.color = colors[5];
+                }
+
+			    else {
+			        node.marker = {
+			      	  radius: 17 * scores[node.id] < 10 ? 17 * scores[node.id] : 17
+					};
+                    node.color = colors[6];
+                }
+
+			}
+		});
+
+		associative_net.series[0].redraw();
+		associative_net.hideLoading();
+    };
+
+    var chart_update = function (_keywords, ret_limit, auto_update) {
+		var depth = 0;
+        for (var i in depths_of_keyw) {
+            if (depths_of_keyw[i].find(function(keyword){
+                depth = parseInt(i);
+                return true
+			})) {
+				break
+			};
+		}
+		depth = depth + 1;
+		if (ret[0] == undefined)
+		    ret.push({});
+
+		for (i in _keywords) {
+            _keywords[i] = _keywords[i].toLowerCase()
+        }
+
+        req_data = {'keywords': _keywords };
+		if (ret_limit == 1)
+		    req_data['ret_limit'] = 1;
+
+		$.ajax({
+		  url: 'http://54.180.122.32:30303/fetch/list',
+		  type: "POST",
+		  data: JSON.stringify(req_data),
+		  contentType:"application/json; charset=utf-8",
+		  dataType:"json",
+		  success: function (data) {
+				_data = JSON.parse(data.data);
+				denoms = JSON.parse(data.denoms);
+				resp_data = [];
+
+				_keywords.forEach(function(key) {
+					ret[depth-1][key] = [];
+				});
+
+				_data['nlp'].forEach(function(_d) {
+				    if (ban_keywords.includes(_d.keyword))
+				        return;
+
+					if (depths_of_keyw[depth] == undefined)
+						depths_of_keyw[depth] = [];
+					depths_of_keyw[depth].push(_d.keyword)
+
+					ret[depth-1][_d.search_word].push([_d.keyword, _d.val/denoms[_d.search_word]['nlp']])
+				});
+
+				_data['others'].forEach(function(_d) {
+				    if (ban_keywords.includes(_d.keyword))
+				        return;
+
+					if (depths_of_keyw[depth] == undefined)
+						depths_of_keyw[depth] = [];
+					depths_of_keyw[depth].push(_d.keyword)
+
+					nlp_others_set.add(_d.keyword);
+					ret[depth-1][_d.search_word].push([_d.keyword, _d.val/denoms[_d.search_word]['others']])
+				});
+
+			  update_network(fetch_network_data_from(ret));
+			  if (auto_update)
+			  	setTimeout(associate_network_refresh, 60000);
+		  }
+		});
+	};
+
+    var click_network_keyword = function (event) {
+        if (event.srcElement.innerHTML == "")
+            return;
+
+        _kw = event.srcElement.innerHTML;
+        var depth = -1;
+        for (var i in depths_of_keyw) {
+            if (depths_of_keyw[i].find(function(keyword){
+                depth = parseInt(i);
+                return true
+			})) {
+				break
+			};
+        }
+
+		if(depth == -1)
+		    return;
+
+		if (keywords[depth] == undefined)
+		    keywords[depth] = []
+
+		keywords[depth].push(_kw);
+//        chart_update();
+    };
+
+	var associative_net = Highcharts.chart('asso_net', {
+			chart: {
+				type: 'networkgraph',
+				height: '80%'
+			},
+			title: {
+				text: '검색단어 확장 그래프'
+			},
+			subtitle: {
+			  	text: "주어진 검색어: " + (keywords[keywords.length-1].join(", ")) + "<br/> (노랑: 명사어구, 빨강: 형용어구)",
+				style: {"fontSize": "14px"}
+			},
+			plotOptions: {
+				networkgraph: {
+					keys: ['from', 'to', 'weight'],
+					layoutAlgorithm: {
+						enableSimulation: true,
+						friction: -0.9
+					}
+					// layoutAlgorithm: {
+					// 	enableSimulation: false,
+					// 	friction: -0.9,
+					// 	gravitationalConstant: 0.1,
+					// 	integration: 'euler',
+					// 	maxIterations: 2000
+					// }
+				}
+			},
+			credits: {
+				enabled: false
+			},
+			exporting: { enabled: false },
+			series: [{
+				pointPlacement: 'on',
+				dataLabels: {
+					enabled: true,
+					linkFormat: '',
+					style: {
+						fontSize: '14px'
+					}
+				},
+				data: []
+			}]
+		});
+
+    chart_update(keywords[keywords.length-1], 0, true);
+
+	function associate_network_refresh() {
+	    curr_search_exp_cnt++;
+	    if (curr_search_exp_cnt > 6) {
+	        associative_net.setTitle(null, {"text": "검색이 완료되었습니다. " + keywords[keywords.length - 1].join(", ") + additional_subtitle });
+	        return;
+		}
+
+	    var additional_subtitle = "<br/> (노랑: 명사어구, 빨강: 형용어구)"
+	    associative_net.showLoading('Loading data from server...');
+        _scores = fetch_network_score_from(ret);
+        sortable_scores = []
+        for (var key in _scores)
+            sortable_scores.push([key, _scores[key]])
+
+        sortable_scores.sort(function (a, b) {
+            return b[1] - a[1];
+        });
+
+        var i = 0;
+        var ret_limit = 0;
+
+        _keywords = [];
+        if (src_count < 100 || main_search_sw == 0) {
+            main_search_sw = 1;
+            associative_net.setTitle(null, {"text": "주어진 제시어로 더 검색합니다: " + keywords[keywords.length - 1].join(", ") + additional_subtitle});
+        }
+        else {
+            main_search_sw = 0;
+            for (var _ in [0, 1]) {
+                target_keyword = sortable_scores[i][0];
+                while (search_expansion_nomore_list.includes(target_keyword)){
+                    i++;
+                    if (i == sortable_scores.length) {
+                        target_keyword = undefined;
+                        break;
+                    }
+					target_keyword = sortable_scores[i][0];
+				}
+
+				if (target_keyword == undefined) {
+				    i = -1;
+				    break;
+				}
+				i++;
+
+				_keywords.push(target_keyword);
+                if (search_expansion_cnt_list[target_keyword] == undefined)
+                    search_expansion_cnt_list[target_keyword] = 1;
+				else
+				    search_expansion_cnt_list[target_keyword] += 1;
+
+				if (search_expansion_cnt_list[target_keyword] == search_expansion_limit)
+				    search_expansion_nomore_list.push(target_keyword);
+
+			}
+			ret_limit = 1;
+			if (i != -1)
+            	associative_net.setTitle(null, {"text": "검색어가 확장됩니다: " + _keywords.join(", ") + additional_subtitle });
+			else
+			    associative_net.setTitle(null, {"text": "검색이 완료되었습니다. " + keywords[keywords.length - 1].join(", ") + additional_subtitle });
+        }
+		if (i != -1)
+        	chart_update(keywords[keywords.length - 1].concat(_keywords), 0, true);
+    }
+
+	var sentiment_ts_colors = ['#A469AB', '#9D9D91'];
+	var sentiment_ts_index_each_keyw = {};
+
+    var sentiment_ts_graph = Highcharts.chart('container3-1', {
+		chart: {
+			scrollablePlotArea: {
+            	minWidth: 700
+			}
+		},
+		title: {
+			text: '실시간 검색어 별 성향 (0: 중립)'
+		},
+		xAxis: {
+            maxZoom: 20 * 1000,
+			visible: false,
+			min:0,
+			max:10
+		},
+		yAxis: {
+			minPadding: 0.2,
+            maxPadding: 0.2,
+            title: {
+                text: 'Neutral',
+                margin: 10
+            },
+			min:-0.7,
+			max:0.7,
+
+		},
+		credits: {
+			enabled: false
+		},
+		series: [{
+			name: 'A',
+			data: [],
+			color: sentiment_ts_colors[0]
+		}, {
+			name: 'B',
+			data: [],
+			color: sentiment_ts_colors[1]
+		}],
+		exporting: {
+		    enabled: false
+		}
+	});
+
+    function sentiment_ts_update_label() {
+        _keywords = keywords[keywords.length - 1];
+        series_cnt = 0
+		sentiment_ts_graph.series[0].update({name:''}, false);
+        sentiment_ts_graph.series[1].update({name:''}, false);
+		_keywords.forEach(function(keyword){
+	        sentiment_ts_graph.series[series_cnt].update({name:keyword}, false);
+	        sentiment_ts_graph.redraw();
+	        series_cnt++;
+		});
+	}
+
+	function refresh_sentiment_ts_data() {
+	    _keywords = keywords_lower[keywords.length - 1];
+	    sentiment_ts_graph.showLoading('Loading data from server...');
+
+		$.ajax({
+			url: 'http://54.180.122.32:30303/sentiment/ts',
+			type: "POST",
+			data: JSON.stringify({'keywords': _keywords, 'ts_idx_each_keyw': sentiment_ts_index_each_keyw}),
+			contentType:"application/json; charset=utf-8",
+		  	dataType:"json",
+			success: function(data) {
+			    var series_cnt = 0;
+				_data = JSON.parse(data.data);
+				_keywords.forEach(function(keyword) {
+					sentiment_data = _data[keyword];
+					var series = sentiment_ts_graph.series[series_cnt];
+					var data_cnt = 0;
+					if (sentiment_data == undefined)
+					    return;
+
+					sentiment_data.forEach(function(sent_data) {
+					    shift = sentiment_ts_graph.series[series_cnt].data.length >= 5;
+					   	series.addPoint([data_cnt++, sent_data['val']], true, false);
+						sentiment_ts_index_each_keyw[keyword] = sent_data['ts'];
+					});
+					series_cnt++;
+				});
+				sentiment_ts_graph.hideLoading();
+				// call it again after one second
+				setTimeout(refresh_sentiment_ts_data, 10000);
+			},
+			cache: false
+		});
+	}
+	sentiment_ts_update_label();
+	refresh_sentiment_ts_data();
+
+	// Highcharts.chart('container',
+	function get_bar_graph() {
+	    return {
+			chart: {
+				type: 'bar'
+			},
+			title: {
+			    style: { "color": "#555555", "fontSize": "15px" },
+				text: ''
+			},
+			xAxis: {
+				categories: [],
+				title: {
+					text: null
+				}
+			},
+			yAxis: {
+				min: 0,
+				title: {
+					text: 'Count',
+					align: 'high'
+				},
+				labels: {
+					overflow: 'justify'
+				}
+			},
+			// tooltip: {
+			// 	valueSuffix: ' millions'
+			// },
+			legend: {
+			    enabled: false
+			},
+			plotOptions: {
+				bar: {
+					dataLabels: {
+						enabled: true
+					}
+				}
+			},
+			credits: {
+				enabled: false
+			},
+			series: [{
+				data: [],
+				color: "#70BF97"
+			}],
+			exporting: {
+				enabled: false
+			}
+		};
+	}
+
+	function get_pie_chart() {
+	    return {
+			chart: {
+				type: 'pie'
+			},
+			title: {
+			    style: { "color": "#555555", "fontSize": "15px" },
+				text: ''
+			},
+			plotOptions: {
+				series: {
+					dataLabels: {
+						enabled: true,
+						format: '{point.name}: {point.y:.1f}%',
+						distance: -40,
+ 		                color: 'white'
+
+					}
+				}
+			},
+			tooltip: {
+				headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+				pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+			},
+			series: [
+				{
+					name: "감정 통계",
+					colorByPoint: true,
+					data: []
+				}
+			],
+			drilldown: {
+				series: []
+			},credits: {
+				enabled: false
+			},
+			exporting: {
+				enabled: false
+			}
+		};
+	}
+
+
+	var bar_charts = [[], []];
+	bar_charts[0].push(Highcharts.chart('container2-2-1-1', get_bar_graph()), Highcharts.chart('container2-2-1-2', get_bar_graph()), Highcharts.chart('container2-2-1-3', get_pie_chart()));
+	bar_charts[1].push(Highcharts.chart('container2-2-2-1', get_bar_graph()), Highcharts.chart('container2-2-2-2', get_bar_graph()), Highcharts.chart('container2-2-2-3', get_pie_chart()));
+
+	function refresh_bar_data(auto_update) {
+	    _keywords = keywords_lower[keywords.length - 1];
+	    bar_charts.forEach(function(chart_list){
+	       chart_list.forEach(function(chart){
+	    		chart.showLoading('Loading data from server...');
+		   })
+		});
+
+		$.ajax({
+			url: 'http://54.180.122.32:30303/sentiment/count',
+			type: "POST",
+			data: JSON.stringify({'keywords': _keywords}),
+			contentType:"application/json; charset=utf-8",
+		  	dataType:"json",
+			success: function(data) {
+                var _data = JSON.parse(data.data);
+				var keyword_idx = 0
+				src_count = 0;
+
+                _keywords.forEach(function (keyword) {
+                    var bar_data = _data[keyword];
+                    if (bar_data == undefined) {
+                        keyword_idx++;
+                        return;
+                    }
+
+                    var total_cnt = bar_data["total_cnt"];
+                    var drilldown_data = {};
+					var total_drilldown = {};
+					var series_cnt = 0;
+
+                    $('#title2-2-'+(keyword_idx+1).toString()).text('\'' + keyword + '\'' + ' 수집된 데이터 수: ' + total_cnt)
+					src_count += total_cnt;
+
+                    var color_set = ["#70BF97", "#CD1946"]
+
+                    sent_contains = ['neg', 'pos']
+                    sent_contains.forEach(function (sent) {
+                        var bar_chart = bar_charts[keyword_idx][series_cnt]
+
+                        var sent_name = series_cnt == 0 ? 'Positive' : 'Negative';
+                        var color = color_set[series_cnt];
+                        bar_chart.setTitle({"text": sent_name + " 단어 수"});
+
+                        var series = bar_chart.series[0];
+                        var xAxis = bar_chart.xAxis[0];
+                        var data_cnt = 0;
+                        var series_data = [];
+                        var categories = [];
+                        drilldown_data[sent] = [];
+                        total_drilldown[sent] = 0;
+
+                        bar_data[sent].forEach(function (sent_data) {
+                            drilldown_data[sent].push([sent_data['keyword'], sent_data['val']])
+							total_drilldown[sent] += sent_data['val'];
+                            categories.push(sent_data['keyword']);
+                            series_data.push(sent_data['val']);
+                        });
+                        series.setData(series_data, false);
+                        series.update({color: color});
+                        xAxis.setCategories(categories, false);
+                        bar_chart.hideLoading();
+                        bar_chart.redraw();
+
+                        series_cnt++;
+                    });
+
+                    let pie_chart = bar_charts[keyword_idx][series_cnt];
+                    let pie_per = bar_data['per'][0];
+					if (pie_per == undefined || pie_chart == undefined) {
+                        keyword_idx++;
+                        return;
+                    }
+
+                    let total = pie_per['pos']+pie_per['neg'];
+                    let pos_per = pie_per['pos'] / total;
+                    let neg_per = pie_per['neg'] / total;
+					sent_contains.forEach(function (k) {
+					    drilldown_data[k].forEach(function (data) {
+					        data[1] = data[1] / total_drilldown[k] * 100;
+						});
+					});
+
+					pie_chart.setTitle({'text': '감정 통계'});
+                    pie_chart.series[0].setData([{
+                        name: "긍정",
+                        y: pos_per * 100,
+                        drilldown: "pos",
+						color: color_set[0]
+                    }, {
+                        name: "부정",
+                        y: neg_per * 100,
+                        drilldown: "neg",
+						color: color_set[1]
+                    }], true, true, false);
+
+                    pie_chart.options.drilldown.series[0] = {
+						id: "pos",
+						data: drilldown_data['pos']
+					};
+					pie_chart.options.drilldown.series[1] = {
+						id: "neg",
+						data: drilldown_data['neg']
+					};
+					pie_chart.hideLoading('Loading data from server...');
+                    pie_chart.redraw();
+
+                    keyword_idx++;
+                });
+			},
+			cache: false
+		});
+
+		if (auto_update) {
+            setTimeout(function() {
+    			refresh_bar_data(true);
+			}, 5000);
+        }
+	}
+	refresh_bar_data(true);
+
+	function ttttt(o) {
+	    bar_chart.xAxis[0].update({categories: ['tet1', 'tet2', 'tet3']}, false);
+		bar_chart.series[0].setData([o, 12, 13], false);
+		bar_chart.redraw();
+
+	}
+
+</script>
