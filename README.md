@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 ![License MIT](https://img.shields.io/badge/License-MIT-red.svg)
 ![License MIT](https://img.shields.io/badge/data-web-blue.svg)
 
@@ -39,6 +37,3 @@ ___
 * [mongodb](https://www.mongodb.com)
 * [highchart](https://www.highcharts.com)
 
-=======
-# CAPSTONE
->>>>>>> 5010344ff939817d85d6b352c119b2279eb75595
